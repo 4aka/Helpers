@@ -1,0 +1,28 @@
+    /**
+     * Fefault 10 symbols
+     * Generate value (ex. doc number: 1q2w3e4r5t)
+     */
+    public String generateValue() {
+        String result = "";
+        Random r = new Random();
+        for (int i = 0; i < 5; i++) {
+            String bytes = (char) (97 + r.nextInt(24)) +
+                    Integer.toString(r.nextInt(9));
+            result += bytes;
+        }
+        return result;
+    }
+    
+    /**
+     * @param length
+     */
+    public String generateValue(int length) {
+        String result = "";
+        Random r = new Random();
+        for (int i = 0; i < length; i++) {
+            String bytes = (char) (97 + r.nextInt(24)) +
+                    Integer.toString(r.nextInt(9));
+            result += bytes;
+        }
+        return result;
+    }
