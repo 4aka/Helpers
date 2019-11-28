@@ -26,3 +26,17 @@
         }
         return result;
     }
+    
+    /**
+     * Generate int (for different aliases)
+     * @param length
+     */
+    public String generateInt(int length) {
+        String result = "";
+        Random r = new Random();
+        for (int i = 0; i < length; i++) {
+            String bytes = Integer.toString(r.nextInt(9));
+            result += bytes;
+        }
+        return result;
+    }
