@@ -40,3 +40,23 @@
         }
         return result;
     }
+
+    /**
+     * Start timer.
+     * @return
+     */
+    public int startTimer() {
+        System.out.println("Timer start at: " + java.time.LocalTime.now());
+        return java.time.LocalTime.now().toSecondOfDay();
+    }
+
+    /**
+     * Stop timer.
+     * @param startTime
+     */
+    public void stopTimer(int startTime) {
+        int stopTime = java.time.LocalTime.now().toSecondOfDay();
+        System.out.println("Timer start at: " + java.time.LocalTime.now());
+        int min = (int) TimeUnit.SECONDS.toMinutes(stopTime - startTime);
+        System.out.println("The process has taken: " + min + " min " + ((stopTime - startTime) - min * 60) + " sec");
+    }
