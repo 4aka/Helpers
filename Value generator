@@ -1,6 +1,6 @@
     /**
-     * Fefault 10 symbols
-     * Generate value (ex. doc number: 1q2w3e4r5t)
+     * Default 10 symbols
+     * Generate value (ex. 1q2w3e4r5t)
      */
     public String generateValue() {
         String result = "";
@@ -30,6 +30,7 @@
     /**
      * Generate int (for different aliases)
      * @param length
+     * Alias + generateInt.
      */
     public String generateInt(int length) {
         String result = "";
