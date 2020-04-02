@@ -1,63 +1,32 @@
     /**
-     * Default 10 symbols
-     * Generate value (ex. 1q2w3e4r5t)
-     */
-    public String generateValue() {
-        String result = "";
-        Random r = new Random();
-        for (int i = 0; i < 5; i++) {
-            String bytes = (char) (97 + r.nextInt(24)) +
-                    Integer.toString(r.nextInt(9));
-            result += bytes;
-        }
-        return result;
-    }
-    
-    /**
-     * @param length
+     * Generate String.
+     *
+     * @param length set string(String) length.
      */
     public String generateValue(int length) {
         String result = "";
         Random r = new Random();
-        for (int i = 0; i < length; i++) {
+
+        for (int i = 0; i < length/2; i++) {
             String bytes = (char) (97 + r.nextInt(24)) +
                     Integer.toString(r.nextInt(9));
             result += bytes;
         }
         return result;
     }
-    
+
     /**
      * Generate int (for different aliases)
-     * @param length
-     * Alias + generateInt.
+     *
+     * @param length string length
      */
     public String generateInt(int length) {
-        String result = "";
+        String result = "1";
         Random r = new Random();
-        for (int i = 0; i < length; i++) {
-            String bytes = Integer.toString(r.nextInt(9));
-            result += bytes;
-        }
+
+        do {
+            result += r.nextInt(9);
+        } while (result.length() != length);
+
         return result;
-    }
-
-    /**
-     * Start timer.
-     * @return
-     */
-    public int startTimer() {
-        System.out.println("Timer start at: " + java.time.LocalTime.now());
-        return java.time.LocalTime.now().toSecondOfDay();
-    }
-
-    /**
-     * Stop timer.
-     * @param startTime
-     */
-    public void stopTimer(int startTime) {
-        int stopTime = java.time.LocalTime.now().toSecondOfDay();
-        System.out.println("Timer start at: " + java.time.LocalTime.now());
-        int min = (int) TimeUnit.SECONDS.toMinutes(stopTime - startTime);
-        System.out.println("The process has taken: " + min + " min " + ((stopTime - startTime) - min * 60) + " sec");
     }
