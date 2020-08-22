@@ -1,0 +1,60 @@
+    public static void changeLine(String filePath, String findThis1, String findThis2, String putThis1, String putThis2) {
+        File file = new File(filePath);
+        List<String> list = new ArrayList<>();
+
+        // read all lines from the file. Change necessary lines.
+        // It works with small files and with line = null
+
+        try {
+            int size = Files.readAllLines(file.toPath()).size();
+            assert size != 0;
+
+            for (int i = 0; i < size; i++) {
+
+                if (Files.readAllLines(file.toPath()).get(i).startsWith(findThis1)) {
+                    String put = findThis1 + putThis1;
+                    list.add(put);
+                    continue;
+                }
+                if (Files.readAllLines(file.toPath()).get(i).startsWith(findThis2)) {
+                    String put = findThis2 + putThis2;
+                    list.add(put);
+                    continue;
+                }
+                list.add(Files.readAllLines(file.toPath()).get(i));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // write new lines into the file.
+
+        File fout = new File(filePath);
+        FileOutputStream fos = null;
+        BufferedWriter bw;
+
+        try {
+            fos = new FileOutputStream(fout);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        assert fos != null;
+        bw = new BufferedWriter(new OutputStreamWriter(fos));
+
+        for (String s : list) {
+            try {
+                bw.append(s);
+                bw.newLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // close
+
+        try {
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
