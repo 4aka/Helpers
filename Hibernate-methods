@@ -72,3 +72,33 @@
         session.close();    // Close session!
         return object.toString();
     }
+    
+   /**
+    * INSERT or UPDATE table. 
+    */
+    public void setStatementsIntoACCS_SALDO() {
+        Hibernate hb;
+        hb = new Hibernate();
+        Session session;
+        session = hb.getSessionFactory().openSession();
+        assert session != null;
+
+        try {
+            session.beginTransaction();
+             
+            String insertStatements = "INSERT INTO TABLE(field, field, field, field, field, field) " +
+                                       "values (value, value, value, value, value, value)";
+            
+            Query query3;
+            query3 = session.createSQLQuery(insertStatements);
+            assert query3 != null;
+            query3.executeUpdate();
+
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        assert session != null;
+        session.close();
+        hb.shutdown();
+    }
