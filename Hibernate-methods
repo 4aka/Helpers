@@ -1,6 +1,6 @@
    /**
     * Get string value from table field.
-    * return array
+    * return String array
     */
     public String[] getSaleBankAccount() {
         Hibernate hb = new Hibernate();
@@ -28,6 +28,7 @@
     
    /**
     * Get int value from table field
+    * return as String
     */
     public String getClientID(String clientName) {
         Hibernate hb = new Hibernate();
