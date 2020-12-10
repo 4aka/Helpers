@@ -1,0 +1,42 @@
+import com.dbosoft.iBankAutotests.browserOptions.ReadSettingsFromFile;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.io.File;
+import static com.dbosoft.iBankAutotests.tests.Variables.HOME_DIR;
+import static org.junit.jupiter.api.Assertions.fail;
+
+public class Hibernate {
+
+    protected Hibernate() {
+    }
+
+    final Logger LOG = LoggerFactory.getLogger(Hibernate.class);
+    final SessionFactory sessionFactory = buildSessionFactory();
+
+    public SessionFactory buildSessionFactory() {
+        ReadSettingsFromFile get = new ReadSettingsFromFile();
+        String dataBaseType = get.getDataBaseType();
+
+        if (dataBaseType.isEmpty()) {
+            fail("Error! DataBaseType is empty");
+        }
+        File con = new File (HOME_DIR + "/build/", dataBaseType + ".cfg.xml");
+
+        try {
+            return new Configuration().configure(con).buildSessionFactory();
+        } catch (Exception ex) {
+            LOG.error("Initial SessionFactory creation failed: ", ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public void shutdown() {
+        getSessionFactory().close();
+    }
+}
