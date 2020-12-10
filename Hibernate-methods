@@ -1,0 +1,26 @@
+    /*
+    * Get string value from table field.
+    * return array
+    */
+    public String[] getSaleBankAccount() {
+        Hibernate hb = new Hibernate();
+        String bankAccount = "select value from TABLE"; // SQL request
+
+        Session session = hb.getSessionFactory().openSession();
+
+        List accListUSD;
+        accListUSD = session.createSQLQuery(bankAccount).list();
+        int sizeUSD = accListUSD.size();
+        assert sizeUSD != 0;
+
+        String[] accounts = new String[sizeUSD];
+        Object obj;
+
+        for (int k = 0; k < accounts.length; k++) {
+            obj = accListUSD.get(k);
+            assert obj != null;
+            accounts[k] = obj.toString();
+        }
+        session.close();
+        return accounts;
+   }
