@@ -1,4 +1,4 @@
-    /*
+   /**
     * Get string value from table field.
     * return array
     */
@@ -21,6 +21,54 @@
             assert obj != null;
             accounts[k] = obj.toString();
         }
-        session.close();
+        hb.shutdown();      // Shutdown hibernate!
+        session.close();    // Close session!
         return accounts;
-   }
+    }
+    
+   /**
+    * Get int value from table field
+    */
+    public String getClientID(String clientName) {
+        Hibernate hb = new Hibernate();
+        Session session;
+
+        session = hb.getSessionFactory().openSession();
+        assert session != null;
+        String select = "SELECT CLIENT_ID FROM CLIENTS WHERE NAME_CLN='" + clientName + "'";
+        List results = null;
+
+        results = session.createSQLQuery(select).list();
+        assert results != null;
+
+        Object objects;
+        objects = results.get(0);
+        assert objects != null;
+
+        hb.shutdown();      // Shutdown hibernate!
+        session.close();    // Close session!
+        return objects.toString();
+    }
+
+   /**
+    * Get MAX value from table field
+    */
+    public String getMaxValueOracle(String field, String table) {
+        Hibernate hb = new Hibernate();
+        Session session = hb.getSessionFactory().openSession();
+        
+        String select = "SELECT MAX(" + field + ") FROM " + table;
+        List result;
+        assert session != null;
+        
+        result = session.createSQLQuery(select).list();
+        assert result != null;
+        
+        Object object;
+        object = result.get(0);
+        assert object != null;
+
+        hb.shutdown();      // Shutdown hibernate!
+        session.close();    // Close session!
+        return object.toString();
+    }
