@@ -1,0 +1,28 @@
+public class ReadSettingsFromFile {
+public class sdf {
+
+    private final String browserName;
+
+    public sdf() {
+        
+        String getBytes = null;
+        try {
+            getBytes = new String(readAllBytes(Paths.get(PATH + "/settings.json")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONObject settings;
+
+        if (!Objects.requireNonNull(getBytes).startsWith("{")) {
+            settings = new JSONObject(getBytes.substring(3));
+        } else {
+            settings = new JSONObject(getBytes);
+        }
+
+        this.browserName = settings.getJSONObject("settings").getString("browserName");
+    }
+
+    public String getBrowserName() {
+        return browserName;
+    }
+}
